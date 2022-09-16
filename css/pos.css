@@ -1,0 +1,23 @@
+a{
+    display: block;
+    background-color: burlywood;
+}
+
+.parent{
+    border: 2px solid salmon;
+    background-color: seashell;
+    padding: 20px;
+    width: 200px;
+    position: relative;
+    height: 500px;
+}
+#child{
+    border: 1px dotted #000;
+    background-color: silver;
+    padding: 20px;
+    /* width: 150px; */
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
