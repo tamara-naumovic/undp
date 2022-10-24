@@ -19,7 +19,7 @@
     </thead>
     <tbody>
         <?php 
-            foreach($search_niz as $pr):
+            foreach($niz_proizvoda as $pr):
         ?>
         <tr>
             <td><?php echo $pr['id'];?></td>
