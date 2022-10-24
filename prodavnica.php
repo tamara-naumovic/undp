@@ -42,20 +42,44 @@ $niz_proizvoda = array(
     )
     );
 
+    $search_niz = array();
+
 if($_SERVER["REQUEST_METHOD"]=="GET"){
-    if(isset($_GET["name"])){
-        $search_proizvodi = array();
+    if(isset($_GET["name"]) && !empty($_GET["name"])){
+        $search_niz = array();
         $search_q = htmlspecialchars($_GET["name"]);
         $search_q = trim($search_q);
         $search_q = strtolower($search_q);
         foreach($niz_proizvoda as $proizvod){
             if(str_contains(strtolower($proizvod["name"]), $search_q)){
-                $search_proizvodi[]=$proizvod;
+                $search_niz[]=$proizvod;
             }
         }
-        require __DIR__. "/search/search.php";
+        require __DIR__. "/search/katalog.php";
         exit();
-    }else{
+    }elseif(isset($_GET["low-price"]) || isset($_GET["high-price"])){
+        $search_niz = array();
+        $lowest = $higest =0;
+        if(!empty($_GET["low-price"])){
+            $lowest = intval($_GET["low-price"]);
+        }else{
+            $lowest = 0;
+        }
+        if(!empty($_GET["high-price"])){
+            $higest = intval($_GET["high-price"]);
+        }else{
+            $higest = 1000000;
+        }
+        foreach($niz_proizvoda as $proizvod){
+            if($proizvod["price"]>$lowest && $proizvod["price"]<$higest){
+                $search_niz[] = $proizvod;
+            }
+        }
+        require __DIR__. "/search/katalog.php";
+        exit();
+    }
+    else{
+        $search_niz = $niz_proizvoda;
         require __DIR__. "/search/katalog.php";
         exit();
     }
