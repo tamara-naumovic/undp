@@ -25,17 +25,19 @@ class Logger
 {
     // use FileLogger, DatabaseLogger; //Trait method DatabaseLogger::log has not been applied as Logger::log, because of collision with FileLogger::log
     use FileLogger, DatabaseLogger{
+        DatabaseLogger::log as logDb; //alias za log fja iz Database Logger-a
         FileLogger::log insteadOf DatabaseLogger; //jedan log umesto drugog
         DatabaseLogger::logOff insteadOf FileLogger; //jedan log umesto drugog
+        
     }
     public function __construct()
     {
         $this->log("Poruka"); 
     }
-
 }
 
 $log = new Logger();
 $log->logOff("Izloguj se");
+$log->logDb("Logovanje u bazi");
 
 ?>
