@@ -1,10 +1,27 @@
 <?php
 //zavisnosti - dependencies (dependency)
 
+interface ServiceInterface{
+    public function doTheThing();
+}
+
 class Service
 {
     public function doTask(){
-        echo "Servis uradio zadatak";
+        echo "Servis uradio zadatak iz Adaptera";
+    }
+}
+
+class ServiceAdapter implements ServiceInterface{
+    private $service;
+    public function __construct(Service $srv)
+    {
+        $this->service = $srv;
+    }
+
+    public function doTheThing()
+    {
+        $this->service->doTask();
     }
 }
 
@@ -17,20 +34,19 @@ class Client
     //     $this->service = new Service();
     // }
 
-
     //dependency injection pattern 
-    public function __construct(Service $srv)
+    public function __construct(ServiceInterface $srv)
     {
         //visible dependency
         $this->service = $srv;
     }
 
     public function doSomething(){
-        $this->service->doTask();
+        $this->service->doTheThing();
     }
 }
 
-$cli = new Client(new Service());
+$cli = new Client(new ServiceAdapter(new Service()));
 $cli->doSomething();
 
 ?>
