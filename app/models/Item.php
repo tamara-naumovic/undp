@@ -1,7 +1,9 @@
 <?php
 namespace App\Models;
 use App\Templates\ModelTemplate;
+use Utility\Printing;
 class Item extends ModelTemplate {
+    use Printing;
     protected int $id;
     protected string $itemName;
     protected float $price;
