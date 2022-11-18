@@ -1,7 +1,10 @@
 <?php
 namespace App\Models;
 use App\Templates\ModelTemplate;
+use Utility\Factory;
+
 class Category extends ModelTemplate {
+    use Factory;
     protected int $id;
     protected string $catName;
     
@@ -36,6 +39,11 @@ class Category extends ModelTemplate {
     
     public function remove(){
     
+    }
+
+    public function __toString()
+    {
+        return "".$this->id;
     }
 }
 ?>
