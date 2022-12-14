@@ -33,8 +33,15 @@ $coll_users = $db->users;
 //         ]
 //     ]
 // );
+// var_dump($insertManyRez->getInsertedIds());
 
-printf("Ubaceno je %d dokumenata\n", $insertManyRez->getInsertedCount());
-var_dump($insertManyRez->getInsertedIds());
+//query-ing
+//findone
+
+$doc1 = $coll_users->findOne(['username'=>'tamara']);
+var_dump($doc1);
+
+
+// printf("Ubaceno je %d dokumenata\n", $insertManyRez->getInsertedCount());
 
 ?>
