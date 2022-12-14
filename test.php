@@ -41,7 +41,38 @@ $coll_users = $db->users;
 $doc1 = $coll_users->findOne(['username'=>'tamara']);
 var_dump($doc1);
 
+//findMany
+echo "<br>Pretraga<br>";
+
+$docs = $coll_users->find(["type"=>"general"]);
+foreach($docs as $doc){
+    echo $doc["username"]."<br>";
+}
+
+//update
+
+$updateRez = $coll_users->updateOne(
+    ['username'=>'admin'],
+    ['$set'=>['type'=>'admin']]
+);
+
+$korisnici = ["petar", "tamara"];
+foreach($korisnici as $korisnik):
+    $coll_users->updateOne(
+        ["username"=>$korisnik],
+        ['$set'=>["type"=>"general"]]
+    );
+endforeach;
+
 
 // printf("Ubaceno je %d dokumenata\n", $insertManyRez->getInsertedCount());
+
+//delete
+
+$deleteRez = $coll_users->deleteOne(["username"=>"petar"]);
+
+echo "<br>Obrisan je jedan dokument<br>";
+
+
 
 ?>
