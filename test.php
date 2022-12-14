@@ -1,0 +1,5 @@
+<?php
+// testiranje MongoDB konekcije
+
+
+?>
