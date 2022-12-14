@@ -19,7 +19,22 @@ $coll_users = $db->users;
 //     'name'=> 'Admin name'
 // ]);
 
+// $insertManyRez = $coll_users->insertMany(
+//     [
+//         [
+//             'username' => 'tamara',
+//             'email' => 'tamara@email.com',
+//             'name' => 'Tamara Naumovic'
+//         ],
+//         [
+//             'username' => 'petar',
+//             'email' => 'petar@email.com',
+//             'name' => 'Petar Lukovac'
+//         ]
+//     ]
+// );
 
-printf("Ubaceno je %d dokumenata\n", $insertOneRez->getInsertedCount());
+printf("Ubaceno je %d dokumenata\n", $insertManyRez->getInsertedCount());
+var_dump($insertManyRez->getInsertedIds());
 
 ?>
