@@ -1,7 +1,7 @@
 <?php
 require 'vendor/autoload.php'; // include Composer's autoloader
-require('connection.php');
-require('crud.php');
+require 'connection.php';
+// require 'crud.php';
 
 ?>
 
@@ -74,6 +74,44 @@ body {font-family: Arial;}
   <span onclick="this.parentElement.style.display='none'" class="topright">&times</span>
   <h3>Studenti</h3>
   <p>Evidencija studenata</p>
+
+  <table id="tab-studenti" border="1">
+    <thead>
+      <tr>
+        <th>Ime</th>
+        <th>Prezime</th>
+        <th>Indeks</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <?php
+        $svi_studenti = $coll_students->find();
+        $counter = 0;
+        foreach($svi_studenti as $std):
+          $counter+=1;
+          $id= "stud".$counter;
+      
+      ?>
+      <tr id="<?php echo $id;?>">
+          <td><?php echo $std['ime'];?></td>
+          <td><?php echo $std['prezime'];?></td>
+          <td><?php echo $std['_id'];?></td>
+          <td>Ocene</td>
+      </tr>
+      <?php endforeach;?>
+    </tbody>
+  </table>
+  <!-- <button id="prikazDodajStd">Dodaj Studenta</button>
+  <button id="prikazObrisiStdd">Obrisi Studenta</button> -->
+  <br>
+  <form method="post" name="dodajStudenta">
+    <input type="text" name="ime" id="std_ime" placeholder="ime">
+    <input type="text" name="prezime" id="std_prezime" placeholder="prezime">
+    <input type="text" name="indeks" id="std_indeks" placeholder="indeks">
+    <input type="submit" value="Dodaj" name="dodaj" id="btnDodaj">
+
+  </form>
 </div>
 
 <div id="Ocene" class="tabcontent">
