@@ -3,11 +3,16 @@
 class Profesor extends Korisnik{
 
 
+
+	protected $nizPredmeta;
+
     public function __construct($ime,$prezime,$email,$sifra,$jmbg,$telefon,$tip)
     {
         parent::__construct($ime, $prezime, $email, $sifra, $jmbg, $telefon, $tip);
 
     }
+
+	
 
 
 	public function getIme() {
@@ -72,6 +77,14 @@ class Profesor extends Korisnik{
 
 	public function setTip($tipkorisnika) {
         $this->tip = $tipkorisnika;
+	}
+
+	public function getNizPredmeta() {
+		return $this->nizPredmeta;
+	}
+
+	public function setNizPredmeta($nizPredmeta) {
+		$this->nizPredmeta = $nizPredmeta;
 	}
 }
 
