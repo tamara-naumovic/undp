@@ -5,6 +5,9 @@ include "model/ostudent.php";
 include "model/mstudent.php";
 include "model/dstudent.php";
 include "model/profesor.php";
+include "model/administrator.php";
+include "model/predmet.php";
+include "model/ocena.php";
 include "controler/controler.php";
 
 include "view/login.php";
@@ -41,4 +44,44 @@ if(isset($_POST["login"])){
         }
     }
 }
+
+$nizpredmeta1 = [];
+$nizpredmeta2= [];
+$nizocena = [];
+
+$p1 = new Predmet("PHP", "php2022", "osnovne");
+$p2 = new Predmet("JAVA", "java2022", "master");
+$p3 = new Predmet("Blockchain", "bc2022", "doktorske");
+
+array_push($nizpredmeta1, $p1);
+array_push($nizpredmeta2, $p2);
+array_push($nizpredmeta1, $p3);
+
+$prof->setNizPredmeta($nizpredmeta1);
+
+$p1->setSpisakProfesora([$prof]);
+$p3->setSpisakProfesora([$prof]);
+$p1->setSpisakStudenata([$so]);
+$p2->setSpisakStudenata([$sm]);
+$p3->setSpisakStudenata([$sd]);
+
+echo "<br> lista predmeta1: ";
+foreach($nizpredmeta1 as $pred):
+    echo "<br>Predmet: ".$pred->getNaziv();
+    echo "<br> Studenti <br>";
+    print_r($pred->getSpisakStudenata());
+endforeach;
+
+echo "<br> lista predmeta2: ";
+foreach($nizpredmeta2 as $pred):
+    echo "<br>Predmet: ".$pred->getNaziv();
+    echo "<br> Studenti <br>";
+    print_r($pred->getSpisakStudenata());
+endforeach;
+
+echo "<br>";
+
+echo Kontroler::prikaziTabelu($nizstudenata, ["status", "indeks", "ime", "prezime", "email", "sifra", "jmbg", "telefon", "tip"]);
+
+
 ?>
