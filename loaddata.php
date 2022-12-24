@@ -1,5 +1,13 @@
 <?php
+include "model/korisnik.php";
+include "model/student.php";
+include "model/ostudent.php";
+include "model/mstudent.php";
+include "model/dstudent.php";
+include "model/profesor.php";
+include "model/administrator.php";
 include "model/predmet.php";
+include "model/ocena.php";
 
 session_start();
 $so = new OStudent("tamara", "naumovic", "tamara@elab.rs", "tamara123", "1234567891234", "0662581477", "student", "2020/1005");
