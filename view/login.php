@@ -19,6 +19,7 @@ if(isset($_SESSION["logovani_korisnik"])){
                 if ($korisnik->getEmail() == $_POST["email"] && $korisnik->getSifra() == $_POST["sifra"]) {
                     $_SESSION["logovani_korisnik"] = $korisnik;
                     echo "Ulogovani korisnik: " . $_SESSION["logovani_korisnik"]->getIme();
+                    header("Location:../");
                     break;
                 } else {
                     echo "Korisnik ne postoji";
