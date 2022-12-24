@@ -1,18 +1,27 @@
 <?php
-include "model/korisnik.php";
-include "model/student.php";
-include "model/ostudent.php";
-include "model/mstudent.php";
-include "model/dstudent.php";
-include "model/profesor.php";
-include "model/administrator.php";
-include "model/predmet.php";
-include "model/ocena.php";
 include "controler/controler.php";
 include "loaddata.php";
 
-include "view/login.php";
 
+if(!isset($_SESSION["logovani_korisnik"])){
+    header("Location: view/login.php");
+}else{
+    $korisnik = $_SESSION["logovani_korisnik"];
+    include "view/header.php";
+    if($korisnik->getTip()=="student"){
+        include "view/student.php";
+        exit();
+    }else if($korisnik->getTip()=="profesor"){
+        include "view/profesor.php";
+        exit();
+    }else if($korisnik->getTip()=="administrator"){
+        include "view/administrator.php";
+        exit();
+    }else{
+        echo "404";
+        exit();
+    }
+}
 
 
 ?>
