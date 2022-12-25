@@ -22,16 +22,19 @@ class Kontroler{
         $reduTabeli = "<tbody>";
         foreach($objekti as $objekat){ //za svakog studenta u listi studenata
             $reduTabeli .= "<tr>";
-            foreach($objekat as $naziv=>$vrednost){
-                echo $vrednost."<br>";
-                $reduTabeli .= "<td>" . $vrednost . "</td>";
+            foreach($objekat->konvertujUNiz() as $naziv=>$vrednost){
+                if(gettype($vrednost)!="array"){
+                    // echo "<br>".$naziv.": ".$vrednost;
+                    $reduTabeli .= "<td>" . $vrednost . "</td>";
+                }
+                
             }
             $reduTabeli .= "</tr>";
         }
-        $reduTabeli = "</tbody>";
-        $tabela = "<table>" . $headertabele ." ". $reduTabeli . "</table>";
+        $reduTabeli.= "</tbody>";
+        $tabela = "<table border='1'>" . $headertabele ." ". $reduTabeli . "</table>";
 
-        return $tabela;
+        echo $tabela;
     }
 }
 
