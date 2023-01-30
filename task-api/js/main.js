@@ -130,6 +130,8 @@ $("#izmeni").click(function(event){
   console.log("Pokrenuto azuriranje...")
   console.log("Task za azuriranje> "+taskid)
 
+  //getJSON(url, [,data],[,success])
+  //https://api.jquery.com/jquery.getjson/ 
   $.getJSON("http://localhost/undp-ajax/task-api/tasks/"+taskid, function(response){
     $("#taskid").val(taskid)
     $("#taskid").show()
@@ -140,12 +142,58 @@ $("#izmeni").click(function(event){
     $("#title").val(response.data.tasks[0].title)
     $("#description").val(response.data.tasks[0].description)
     $("#completed").val(response.data.tasks[0].completed)
+  })
+})
 
+$("#updatetask").click(function(event){
+  event.preventDefault()
+  console.log("Updating...")
+
+  const $form = $(this).closest("form")
+  console.log($form)
+
+  let obj = $form.serializeArray()
+  console.log(obj)
+  let objekat = obj.reduce(function(json, {name, value}){
+    json[name] = value
+    return json
+  }, {})
+
+  //u slucaju da imamo disabled polje (a ne readonly) dobije 3 polja samo serijalizacijom
+  objekat.id = $("#taskid").val() //ovo mozemo da zakomentarisemo ako taksid postavimo na readonly a ne disabled
+  console.log(objekat)
+
+  const objJSON = JSON.stringify(objekat)
+
+  req = $.ajax({
+    contentType:"application/json",
+    url:"http://localhost/undp-ajax/task-api/tasks/"+objekat.id,
+    type:"patch",
+    data:objJSON
   })
 
+  req.done(function(res, textStatus, jqXHR){
+    console.log(res.data.task[0])
+    $form[0].reset()
+    $("#taskid").hide()
+    $("#inserttask").show()
+    $("#updatetask").hide()
+    izmeniRed(res.data.task[0])
+  })
 
+  req.fail(function(jqXHR,textStatus,errorThrown){
+    console.log("Desila se greska> "+textStatus, errorThrown)
+    console.log(jqXHR)
+    })
 
 })
+
+function izmeniRed(rezultat){
+  const redradio = $("input[type=radio]:checked")
+  const red = redradio.closest("tr")
+  red.children()[0].textContent = rezultat.title
+  red.children()[1].textContent = rezultat.description
+}
 
 // dobra praksa sve pomoćne funkcije smeštati na kraj fajla
 function dodajRed(rezultat) {
