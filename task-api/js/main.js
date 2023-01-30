@@ -119,7 +119,33 @@ $("#obrisi").click(function(event){
 })
 
 // 4. Azuriranje
+// 4.1. popuni formu sa vrednostima selektovanog taska
 
+$("#izmeni").click(function(event){
+  event.preventDefault()
+
+  const task = $("input[type=radio]:checked")
+  var taskid = task.val()
+
+  console.log("Pokrenuto azuriranje...")
+  console.log("Task za azuriranje> "+taskid)
+
+  $.getJSON("http://localhost/undp-ajax/task-api/tasks/"+taskid, function(response){
+    $("#taskid").val(taskid)
+    $("#taskid").show()
+    $("#inserttask").hide()
+    $("#updatetask").show()
+    console.log("Odgovor iz getJSON")
+    console.log(response)
+    $("#title").val(response.data.tasks[0].title)
+    $("#description").val(response.data.tasks[0].description)
+    $("#completed").val(response.data.tasks[0].completed)
+
+  })
+
+
+
+})
 
 // dobra praksa sve pomoćne funkcije smeštati na kraj fajla
 function dodajRed(rezultat) {
