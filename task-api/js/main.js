@@ -90,8 +90,29 @@ $("#dodaj").submit(function (e) {
 // 3. OBRISI
 //document.getelementbyid("obrisi")
 $("#obrisi").click(function(event){
-  event.preventDefault();
+  event.preventDefault()
   console.log("Obrisi je pokrenuto...")
+
+
+  const checkedInput = $("input[type=radio]:checked")
+  console.log(checkedInput)
+  console.log(checkedInput.val())
+
+  req = $.ajax({
+    url:"http://localhost/undp-ajax/task-api/tasks/"+checkedInput.val(),
+    type:"delete"
+  })
+
+  req.done(function(response, textStatus, jqXHR){
+    console.log(response.messages)
+    alert(response.messages[0])
+    checkedInput.closest("tr").remove()
+  })
+  req.fail(function(jqXHR, textStatus, errorThrown){
+    console.log("Sledeca greska se desila: "+textStatus,errorThrown)
+    console.log(jqXHR)
+  })
+
 
 })
 
