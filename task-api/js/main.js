@@ -40,12 +40,13 @@ $("#prikaziSve").submit(function (event) {
 
 //2. DODAVANJE NOVOG TASKA
 
-$("#dodaj").submit(function (e) {
+$("#inserttask").click(function (e) {
   e.preventDefault()
   console.log("Dodaj novi task zapoceto...")
 
   //   selektujem celu formu - pogledati format u kome se vraca
-  const $form = $(this)
+  // najblizi form element u odnosu na dugme koje selektujemo
+  const $form = $(this).closest("form")
   console.log($form) //jQuery.fn.init [form#dodaj]
 
   //   prikaz niza sa parovima kljuc-vrednost, ali neodgovorarajuci
@@ -78,6 +79,7 @@ $("#dodaj").submit(function (e) {
     console.log(rezultat)
 
     dodajRed(rezultat)
+    $form[0].reset()
   })
 
   request.fail(function (jqXHR, textStatus, errorThrown) {
@@ -116,6 +118,7 @@ $("#obrisi").click(function(event){
 
 })
 
+// 4. Azuriranje
 
 
 // dobra praksa sve pomoćne funkcije smeštati na kraj fajla
