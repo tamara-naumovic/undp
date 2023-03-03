@@ -19,7 +19,7 @@ class PostFactory extends Factory
     public function definition()
     {
         return [
-            'title'=>fake()->title(),
+            'title'=>fake()->sentence(4),
             'excerpt'=>fake()->sentence(),
             'body'=>fake()->paragraph(10),
             'slug'=>fake()->unique()->slug(),
