@@ -23,6 +23,7 @@
                 </nav>
             </div>
         </header>
+        {{-- oznacavanje da ce se koristiti js u blade fajlovima --}}
         @yield('scripts')
         @yield('content')
         

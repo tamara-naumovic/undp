@@ -54,7 +54,9 @@
                     </tr>
                 </thead>
 
+                {{-- provera da li sesija cartItems postoji --}}
                 @if (session('cartItems'))
+                    {{-- prolazak kroz sesiju --}}
                     @foreach (session('cartItems') as $id => $value)
                     <tbody class="bg-white divide-y divide-gray-200">
                         <tr data-id="{{ $id }}">
@@ -97,7 +99,7 @@
                                     {{-- onchange="funckija()" --}}
                                     <select name="quantity" id="quantity-{{$id}}" onchange="funkcija(this.id)"  >
                                         @for ($i = 1; $i <= 10; $i++)
-                                        {{--   --}}
+                                            {{-- nacin da u dropdown meniju oznacimo kolicinu na frontu   --}}
                                             <option  value="{{ $i }}" {{ $value['quantity'] == $i ? 'selected' : ''}}>
                                                 {{ $i }} 
                                             </option>
@@ -114,6 +116,7 @@
                             </td>
 
                             <td class="px-6 whitespace-nowrap text-right text-sm font-medium">
+                                {{-- briisanje na ruti delete.from.cart --}}
                                 <a href="{{ route('delete.from.cart', $id) }}" role="button" class="text-red-600 hover:text-red-900">Delete</a>
                             </td>
                         </tr>
