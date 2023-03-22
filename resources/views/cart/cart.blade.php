@@ -92,12 +92,14 @@
                             </td>
 
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                {{-- <form action="{{ route('update.from.cart') }}" method="POST"> --}}
                                 {{--  --}}
-                                    {{-- @csrf --}}
+                                {{--  --}}
+                                    {{--  --}}
                                     {{--this.form.submit()   --}}
                                     {{-- onchange="funckija()" --}}
-                                    <select name="quantity" id="quantity-{{$id}}" onchange="funkcija(this.id)"  >
+                                <form action="{{ route('update.from.cart', $id) }}" method="POST">
+                                @csrf
+                                    <select name="quantity" id="quantity-{{$id}}" onchange="this.form.submit()"  >
                                         @for ($i = 1; $i <= 10; $i++)
                                             {{-- nacin da u dropdown meniju oznacimo kolicinu na frontu   --}}
                                             <option  value="{{ $i }}" {{ $value['quantity'] == $i ? 'selected' : ''}}>
@@ -105,7 +107,7 @@
                                             </option>
                                         @endfor
                                     </select>
-                                {{-- </form> --}}
+                                </form>
                             </td>
                             
                             
@@ -138,5 +140,12 @@
         </div>
     </div>
 </div>
-<script>console.log(ee)</script>
+<script>console.log("ee")</script>
+@endsection
+
+@section("scripts")
+
+<script>
+
+</script>
 @endsection

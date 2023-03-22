@@ -58,4 +58,25 @@ class CartController extends Controller
 
         return redirect()->back();
     }
+
+    public function update(Request $request) 
+    {
+        // provera da li je u zahtevu poslat id proizvoda 
+        // i kolicina, jer je to jedini podatak koji hocemo da azuriramo
+        if($request->id && $request->quantity) 
+        {
+            // citanje podataka iz sesije
+            $cartItems = session()->get('cartItems');
+
+            // kako da dodjem do kolicine izabranog proizvoda?
+            $cartItems[$request->id]['quantity'] = $request->quantity;
+
+            // sacuvamo podatke u sesiji
+            session()->put('cartItems', $cartItems);
+        }
+
+        return redirect()->back();
+
+
+    }
 }
