@@ -97,9 +97,15 @@
                                     {{--  --}}
                                     {{--this.form.submit()   --}}
                                     {{-- onchange="funckija()" --}}
-                                <form action="{{ route('update.from.cart', $id) }}" method="POST">
-                                @csrf
-                                    <select name="quantity" id="quantity-{{$id}}" onchange="this.form.submit()"  >
+                                {{-- <form action="{{ route('update.from.cart', $id) }}" method="POST"> --}}
+                                {{-- @csrf --}}
+                                    {{-- id = quantity-2 --}}
+                                    {{-- id = quantity-1 --}}
+
+                                    {{-- 2. nacin - id select elementa koji u sebi sadrzi id proizvoda --}}
+                                    <select name="quantity" id="quantity-{{$id}}" onchange="updateAJAX(this.id)"  >
+                                    {{-- 1. nacin - ID proizvoda --}}
+                                    {{-- <select name="quantity" id="quantity-{{$id}}" onchange="updateAJAX({{$id}})"  > --}}
                                         @for ($i = 1; $i <= 10; $i++)
                                             {{-- nacin da u dropdown meniju oznacimo kolicinu na frontu   --}}
                                             <option  value="{{ $i }}" {{ $value['quantity'] == $i ? 'selected' : ''}}>
@@ -107,7 +113,7 @@
                                             </option>
                                         @endfor
                                     </select>
-                                </form>
+                                {{-- </form> --}}
                             </td>
                             
                             
@@ -144,8 +150,55 @@
 @endsection
 
 @section("scripts")
+<script src="https://code.jquery.com/jquery-3.6.4.js" 
+integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" 
+crossorigin="anonymous"></script>
 
 <script>
+function updateAJAX(e) 
+{
 
+    // 1. nacin - saljemo id proizvoda kroz parametar funkcije
+    //NE RADI AJAX :(( 
+    /*var izabranaKolicina = $('#quantity-'+id).val();
+    console.log("Id proizvoda: " + id + " Izabrana kolicina: " + izabranaKolicina);
+
+    $.ajax({
+        url: '{{ route('update.from.cart') }}',
+        method: "post",
+        data: {
+            _token: '{{ csrf_token() }}'
+            id: id,
+            quantity: izabranaKolicina,
+        },
+        success: function(response) {
+            console.log("Uspesno" + response);
+        }
+    });
+    */
+
+
+    // drugi nacin, radi ajax
+    console.log("Usao sam u funkciju.");
+    var ele = $(this);
+    var el_q = String("#"+e);
+    console.log("Quantity you choose:"+$(el_q).val() );
+    
+     $.ajax({
+            url: '{{ route('update.from.cart') }}',
+            method: "post",
+            data: {
+                _token: '{{ csrf_token() }}', 
+                id: e.split('-')[1], 
+                quantity: $(el_q).val()
+            },
+            success: function (response) {
+               console.log("uspesno" );
+                //location.reload();
+            }
+        });
+
+    
+}
 </script>
 @endsection

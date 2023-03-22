@@ -73,6 +73,8 @@ class CartController extends Controller
 
             // sacuvamo podatke u sesiji
             session()->put('cartItems', $cartItems);
+
+            session()->flash('success', "super si");
         }
 
         return redirect()->back();
