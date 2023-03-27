@@ -3,7 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
-
+use App\Mail\MyTestMail;
+use Illuminate\Support\Facades\Mail;
 
 Route::get('/', function() {
     return view('index');
@@ -26,6 +27,11 @@ Route::get('/delete-from-cart/{product}', [CartController::class, 'delete'])
 
 Route::post('/update-from-cart', [CartController::class, 'update'])
     ->name('update.from.cart');
+
+Route::get('/testmail', function(){
+    $name = "Dragana";
+    Mail::to('naumovictam@gmail.com')->send(new MyTestMail($name));
+});
 
 
 
