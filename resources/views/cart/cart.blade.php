@@ -6,6 +6,12 @@
         Shopping Cart
     </h1>
 
+    <select name="currency" id="currency" onchange="currencyChange()">
+        <option value="usd" selected>USD</option>
+        <option value="rsd" >RSD</option>
+        <option value="eur" >EUR</option>
+    </select>
+
     <hr class="border-1 border-gray-300">
 </div>
 
@@ -43,7 +49,7 @@
                         <th 
                             scope="col" 
                             class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Total
+                            Total <span id="currency_symbol">$</span>
                         </th>
                         
                         <th 
@@ -118,8 +124,8 @@
                             
                             
                             <td class="px-6 py-4 whitespace-nowrap">
-                               <div class="text-sm text-gray-900" id="total">
-                                    $ {{ $value['quantity'] * $value['price'] }} 
+                               <div class="text-sm text-gray-900 total" id="total">
+                                    {{ $value['quantity'] * $value['price'] }} 
                                 </div>
                             </td>
 
@@ -199,6 +205,31 @@ function updateAJAX(e)
         });
 
     
+}
+
+let default_currency = 'usd';
+function currencyChange(){
+    const currency = $("#currency").val();
+    const url = "https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/"+default_currency+"/"+currency+".json";
+    $.getJSON(url, function(data){
+        const total_all = $(".total");
+        for(red of total_all){
+            console.log(red.innerText);
+            const red_float = parseFloat(red.innerText);
+            if(currency=="eur"){
+                red_novi = (red_float*data.eur).toFixed(2);
+                $("#currency_symbol").text("€");
+            }else if(currency=="usd"){
+                red_novi = (red_float*data.usd).toFixed(2);
+                $("#currency_symbol").text("$");
+            }else{
+                red_novi = (red_float*data.rsd).toFixed(2);
+                $("#currency_symbol").text("din");
+            }
+            red.innerText = red_novi;
+        }
+        default_currency = currency;
+    });
 }
 </script>
 @endsection
